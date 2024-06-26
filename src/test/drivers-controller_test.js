@@ -13,7 +13,6 @@ describe('Drives controller', () => {
       .end(() => {
         Driver.countDocuments().then(newCount => {
           assert((count + 1) === newCount);
-          done();
         });
         done();
       });
@@ -31,7 +30,6 @@ describe('Drives controller', () => {
           Driver.findOne({ email: 't@t.com' })
           .then(driver => {
             assert(driver.driving === true);
-            done();
           });
           done();
         });
@@ -48,10 +46,32 @@ describe('Drives controller', () => {
           Driver.findOne({ email: 'test@test.com' })
           .then(driver => {
             assert(driver === null);
-            done();
         });
         done();
       });
     })
+  });
+
+  it('GET to /api/drivers finds drivers in a location', done => {
+    const kyivDriver = new Driver({
+      email: 'kyiv@test.com',
+      geometry: { type: 'Point', coordinates: [30.523333, 50.450001] }
+    });
+    const miamiDriver = new Driver({
+      email: 'miami@test.com',
+      geometry: { type: 'Point', coordinates: [-80.253, 25.791] }
+    });
+
+    Promise.all([kyivDriver.save(), miamiDriver.save()])
+      .then(() => {
+        request(app)
+          .get('/api/drivers?lng=30&lat=50')
+          .end((err, response) => {
+            assert(response.body.length === 1);
+            assert(response.body[0].obj.email === 'kyiv@test.com')
+            console.log(response);
+          });
+        });
+      done();
   });
 });

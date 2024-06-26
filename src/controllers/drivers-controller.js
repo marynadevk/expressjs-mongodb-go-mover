@@ -1,7 +1,20 @@
 import { StatusCodes } from 'http-status-codes';
 import { Driver } from '../models/driver-model.js';
 
+export const MAX_DISTANCE = 200000;
+
 class DriversController {
+  index(req, res, next) {
+    const { lng, lat } = req.query;
+
+    Driver.geoNear(
+      { type: 'Point', coordinates: [parseFloat(lng), parseFloat(lat)] },
+      { spherical: true, maxDistance: MAX_DISTANCE }
+    )
+      .then(drivers => res.send(drivers))
+      .catch(next);
+  }
+
   createDriver(req, res, next) {
     const driverProps = req.body;
 
