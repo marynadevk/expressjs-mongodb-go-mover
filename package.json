@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-  "test": "cross-env NODE_ENV=test mocha src/test --recursive -R min"
+    "start": "nodemon src/app.js",
+    "test": "cross-env NODE_ENV=test mocha src/test --recursive -R min"
   },
   "author": "",
   "license": "ISC",

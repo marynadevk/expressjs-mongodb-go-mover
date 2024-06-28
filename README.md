@@ -17,7 +17,7 @@ To set up the project, follow these steps:
 1. **Clone the repository:**
 
 ```sh
- git clone <repository_url>
+ git clone https://github.com/marynadevk/expressjs-mongodb-go-mover.git
  cd <project_directory>
 ```
 
@@ -27,18 +27,13 @@ To set up the project, follow these steps:
   npm install
 ```
 
-3. **Create a .env file and add your MongoDB URL:**
+3. **Create a .env file with the same variables as in .env.example**
+
+
+4. **Run application:**
 
 ```sh
-  PORT=your_port
-  DB_URL=your_mongodb_url
-  DB_URL_TEST=your_test_url
-```
-
-2. **Run application:**
-
-```sh
-  nodemon
+  npm start
 ```
 
 ## API Endpoints

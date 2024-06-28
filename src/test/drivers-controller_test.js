@@ -69,7 +69,6 @@ describe('Drives controller', () => {
           .end((err, response) => {
             assert(response.body.length === 1);
             assert(response.body[0].obj.email === 'kyiv@test.com')
-            console.log(response);
           });
         });
       done();
